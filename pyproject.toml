@@ -10,7 +10,7 @@ dependencies = [
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.0.12"
+version = "0.0.13"
 version_files = [
   "pyproject.toml:project.version"
 ]
