@@ -14,21 +14,25 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Configure git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Install uv
-        run: pip install uv
+#      - name: Install uv
+#        run: pip install uv
+#
+#      - name: Install UV sync
+#        run: uv sync
 
-      - name: Install UV sync
-        run: uv sync
-
-      - name: Configure git
+      - name: Install commitizen
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          pip install -U commitizen
 
       - name: Bump version
         env:
