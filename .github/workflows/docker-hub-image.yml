@@ -14,8 +14,8 @@ jobs:
   bump-version:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    outputs:
-      tag: ${{ steps.get_tag.outputs.tag }}
+#    outputs:
+#      tag: ${{ steps.get_tag.outputs.tag }}
 
     steps:
       - name: Checkout code
@@ -40,6 +40,7 @@ jobs:
 
       - name: Dry run to get new tag
         id: get_tag
+        shell: bash
         run: |
           tag=$(cz bump --yes --no-verify --changelog --dry-run)
           VERSION=$(echo "$tag" | sed -n 's/^tag to create: v//p')
