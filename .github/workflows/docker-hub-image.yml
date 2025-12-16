@@ -1,8 +1,9 @@
 name: Build & Push Docker Image to Docker Hub
 
 on:
-  pull_request:
-    types: [closed]
+  push:
+    tags:
+      - "v*"
 
 jobs:
   build:
@@ -14,12 +15,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get PR merge commit
-        id: merge_commit
-        run: |
-          MERGE_COMMIT=${{ github.event.pull_request.merge_commit_sha }}
-          echo "MERGE_COMMIT=$MERGE_COMMIT"
-          echo "MERGE_COMMIT=$MERGE_COMMIT" >> $GITHUB_ENV
+      - name: Get tag
+        run: echo "TAG=${GITHUB_REF_NAME}" >> $GITHUB_ENV
 
       - name: Get last tag for merge commit
         id: get_tag
@@ -35,10 +32,20 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker image
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/python-uv:$TAG .
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.3_12
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/python-uv:${{ env.TAG }}
+            ${{ secrets.DOCKER_USERNAME }}/python-uv:latest
 
-      - name: Push Docker image
-        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/python-uv:$TAG
+#      - name: Build Docker image
+#        run: |
+#          docker build -f  -t ${{ secrets.DOCKER_USERNAME }}/python-uv:$TAG .
+#
+#      - name: Push Docker image
+#        run: |
+#          docker push ${{ secrets.DOCKER_USERNAME }}/python-uv:$TAG
