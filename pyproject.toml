@@ -1,7 +1,18 @@
 [project]
 name = "uv-docker"
-version = "0.0.0"
+version = "0.0.1"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "commitizen>=4.10.1",
+]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.0.1"
+version_files = [
+  "pyproject.toml:project.version"
+]
+tag_format = "v$version"
+update_changelog_on_bump = true
