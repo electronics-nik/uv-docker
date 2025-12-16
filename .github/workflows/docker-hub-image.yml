@@ -41,7 +41,8 @@ jobs:
       - name: Dry run to get new tag
         id: get_tag
         run: |
-          TAG=$(cz bump --yes --dry-run | grep "tag to create" | awk '{print $4}')
+          TAG=$(cz bump --yes --no-verify --changelog --dry-run | awk -F': ' '/tag to create/{print $2}')
+
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
       - name: Bump version
