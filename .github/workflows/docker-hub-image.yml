@@ -2,8 +2,7 @@ name: Build & Push Docker Image to Docker Hub
 
 on:
   pull_request:
-    branches:
-      - master
+      types: [closed]
 
 env:
   DOCKER_IMAGE_NAME: python-uv
