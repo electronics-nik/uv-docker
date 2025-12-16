@@ -1,0 +1,9 @@
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get install -y curl unzip git make
+RUN curl -sSf https://install.astral.sh/uv.sh | bash
+RUN pip install --upgrade pip
+RUN pip install commitizen
+RUN rm -rf /var/lib/apt/lists/*
+
+ENV PATH="/root/.uv/bin:${PATH}"
