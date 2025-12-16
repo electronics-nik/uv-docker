@@ -45,8 +45,8 @@ jobs:
           tag=$(cz bump --yes --no-verify --changelog --dry-run)
           VERSION=$(echo "$tag" | sed -n 's/^tag to create: v//p')
           echo "Version: $VERSION"
-          echo "tag=$VERSION" >> $GITHUB_ENV
-          echo "ENV: ${{ env.tag }}"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "ENV: ${{ env.VERSION }}"
 
       - name: Bump version
         env:
