@@ -41,7 +41,7 @@ jobs:
       - name: Dry run to get new tag
         id: get_tag
         run: |
-          t=(cz bump --yes --no-verify --changelog --dry-run)
+          t=$(cz bump --yes --no-verify --changelog --dry-run)
           echo "t=$t"
           TAG=$(cz bump --yes --no-verify --changelog --dry-run | awk -F': ' '/tag to create/{print $2}')
 
