@@ -108,7 +108,7 @@ jobs:
     steps:
       - name: Show version
         run: |
-          echo "TAG: ${{ jobs.bump-version.outputs.tag }}"
+          echo "TAG: ${{ needs.bump-version.outputs.tag }}"
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
