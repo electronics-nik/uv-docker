@@ -80,7 +80,7 @@ jobs:
           file: Dockerfile.3_12
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ DOCKER_IMAGE_NAME }}_3.12:${{ needs.bump-version.outputs.tag }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}_3.12:${{ needs.bump-version.outputs.tag }}
 
       - name: Build and push v3.13
         uses: docker/build-push-action@v5
@@ -89,7 +89,7 @@ jobs:
           file: Dockerfile.3_13
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ DOCKER_IMAGE_NAME }}_3.13:${{ needs.bump-version.outputs.tag }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}_3.13:${{ needs.bump-version.outputs.tag }}
 
       - name: Build and push v3.14
         uses: docker/build-push-action@v5
@@ -98,7 +98,7 @@ jobs:
           file: Dockerfile.3_14
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ DOCKER_IMAGE_NAME }}_3.14:${{ needs.bump-version.outputs.tag }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}_3.14:${{ needs.bump-version.outputs.tag }}
 
   create-github-release:
     runs-on: ubuntu-latest
