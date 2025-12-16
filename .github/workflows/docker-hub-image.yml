@@ -41,12 +41,9 @@ jobs:
       - name: Dry run to get new tag
         id: get_tag
         run: |
-          t=$(cz bump --yes --no-verify --changelog --dry-run)
-          echo "t=$t"
-          VERSION=$(echo "$t" | sed -n 's/^tag to create: v//p')
+          tag=$(cz bump --yes --no-verify --changelog --dry-run)
+          VERSION=$(echo "$tag" | sed -n 's/^tag to create: v//p')
           echo "Version: $VERSION"
-          TAG=$(cz bump --yes --no-verify --changelog --dry-run | awk -F': ' '/tag to create/{print $2}')
-
           echo "tag=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Bump version
@@ -64,6 +61,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Show version
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo ${{ env }}
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
